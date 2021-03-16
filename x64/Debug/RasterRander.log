@@ -1,0 +1,64 @@
+﻿  Rasterizer.cpp
+D:\1study\Computer Graphics\RasterRander\texture.hpp(31,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(32,13): warning C4244: “初始化”: 从“const _Ty”转换到“int”，可能丢失数据
+          with
+          [
+              _Ty=float
+          ]
+D:\1study\Computer Graphics\RasterRander\texture.hpp(33,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(34,13): warning C4244: “初始化”: 从“const _Ty”转换到“int”，可能丢失数据
+          with
+          [
+              _Ty=float
+          ]
+D:\1study\Computer Graphics\RasterRander\texture.hpp(51,38): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(51,34): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(59,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(61,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(97,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(99,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(130,1): warning C4305: “初始化”: 从“double”到“float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(140,12): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(141,12): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(155,1): warning C4305: “初始化”: 从“double”到“float”截断
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(10,20): warning C4244: “参数”: 从“int”转换到“const float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(10,37): warning C4244: “参数”: 从“int”转换到“const float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(11,13): warning C4244: “参数”: 从“int”转换到“const float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(11,28): warning C4244: “参数”: 从“int”转换到“const float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(83,68): warning C4267: “参数”: 从“size_t”转换到“const int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(86,12): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(88,12): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(99,31): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(101,32): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(104,16): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(105,15): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(106,16): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(107,15): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\Rasterizer.cpp(551,23): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+  main.cpp
+D:\1study\Computer Graphics\RasterRander\texture.hpp(31,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(32,13): warning C4244: “初始化”: 从“const _Ty”转换到“int”，可能丢失数据
+          with
+          [
+              _Ty=float
+          ]
+D:\1study\Computer Graphics\RasterRander\texture.hpp(33,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(34,13): warning C4244: “初始化”: 从“const _Ty”转换到“int”，可能丢失数据
+          with
+          [
+              _Ty=float
+          ]
+D:\1study\Computer Graphics\RasterRander\texture.hpp(51,38): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\texture.hpp(51,34): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(59,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(61,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(97,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(99,1): warning C4305: “参数”: 从“double”到“const float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(130,1): warning C4305: “初始化”: 从“double”到“float”截断
+D:\1study\Computer Graphics\RasterRander\shader.hpp(140,12): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(141,12): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\1study\Computer Graphics\RasterRander\shader.hpp(155,1): warning C4305: “初始化”: 从“double”到“float”截断
+D:\1study\Computer Graphics\RasterRander\OBJ_Loader.h(947,33): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  正在生成代码...
+D:\1study\Computer Graphics\RasterRander\shader.hpp(43): warning C4715: “Shader::Shading”: 不是所有的控件路径都返回值
+  RasterRander.vcxproj -> D:\1study\Computer Graphics\RasterRander\x64\Debug\RasterRander.exe
