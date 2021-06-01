@@ -1,4 +1,14 @@
-﻿#include <iostream>
+﻿/*
+* Made by Suzhi_Zhang on 2021-02-14
+* https://1keven1.github.io/
+* 
+* 使用了Eigen库和OpenCV
+* 简单实现光栅化渲染器的基本功能
+* （MVP变换，Blinn-Phong光照模型，贴图，双线性插值，法线贴图）
+* 制作介绍：
+* https://1keven1.github.io/2021/02/14/%E3%80%90C-%E3%80%91%E6%9A%B4%E5%8A%9B%E5%85%89%E6%A0%85%E6%B8%B2%E6%9F%93%E5%99%A8%EF%BC%88%E4%B8%8D%E4%BD%BF%E7%94%A8%E4%BB%BB%E4%BD%95%E5%9B%BE%E5%BD%A2%E5%AD%A6API%EF%BC%89/
+*/
+#include <iostream>
 #include <Eigen/Eigen>
 #include <opencv2/opencv.hpp>
 #include "global.h"
@@ -16,6 +26,7 @@ Camera camera;
 int frameCount = 0;
 int key = 0;
 float angle = 0;
+float scale = 1;
 
 void SetTriangles()
 {
@@ -60,8 +71,8 @@ void SetTriangles()
 void SetModel()
 {
 	objl::Loader loader;
-	std::string objPath = "./Models/spot/";
-	std::string objName = "spot_triangulated_good.obj";
+	std::string objPath = "./";
+	std::string objName = "Model.obj";
 	bool bLoad = loader.LoadFile(objPath + objName);
 	if (bLoad)
 	{
@@ -82,7 +93,9 @@ void SetModel()
 			}
 			o->position = Vector3f(0, 0, 0);
 			o->rotation = Vector3f(0, 135, 0);
+			angle = o->rotation.y();
 			o->scale = Vector3f(2, 2, 2);
+			scale = 2;
 			objectList.push_back(*o);
 			logger.ModelLoadSuccess(objName);
 		}
@@ -112,12 +125,12 @@ void SetCamera()
 
 void SetTexture(Rasterizer& r)
 {
-	std::string texPath = "./Models/spot/";
-	std::string texName = "denmin_fabric_02_diff_4k.png";
-	std::string bumpName = "BumpTest01.png";
-	std::string normalName = "denmin_fabric_02_nor_4k.png";
+	std::string texPath = "./";
+	std::string texName = "Texture.png";
+	// std::string bumpName = "BumpTest01.png";
+	std::string normalName = "Normal.png";
 	r.SetTexture(texPath + texName);
-	//r.SetBumpMap(texPath + bumpName);
+	// r.SetBumpMap(texPath + bumpName);
 	r.SetNormalMap(texPath + normalName);
 }
 
@@ -130,15 +143,18 @@ int main()
 
 	//初始化光栅化器
 	Rasterizer r(width, height);
-	logger.RanderInfo(width, height);
 	SetTexture(r);
 
-	//打印渲染信息
-	logger.RanderStart(objectList);
+	// 渲染循环
 	do
 	{
-		//objectList[0].rotation = Vector3f(0, angle, 0);
+		logger.RanderInfo(width, height);
+		logger.RanderStart(objectList);
 		logger.PrintFrameCount(++frameCount);
+
+		objectList[0].rotation = Vector3f(0, angle, 0);
+		objectList[0].scale = Vector3f(scale, scale, scale);
+
 		r.Clear();
 		//复制一份出来供光栅化器处理
 		std::vector<Object> oList = objectList;
@@ -148,16 +164,25 @@ int main()
 		r.VertexShader(oList, lList, camera);
 		r.FragmentShader(oList, lList);
 
-		//绘制
+		//OpenCV: 显示
 		cv::Mat image(height, width, CV_32FC3, r.GetFrameBuffer().data());
 		image.convertTo(image, CV_8UC3, 1.0f);
 		cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
 		logger.ShowImage();
 		cv::imshow("OpenCV", image);
 		//cv::imwrite("spotFabric.png", image);
-		key = cv::waitKey(0);
-		if (key == 'a') angle += 10;
-		if (key == 'd') angle += -10;
+		key = cv::waitKey(10);
+
+		// 一些键盘操作
+		if (key == 'a') angle += -10;
+		if (key == 'd') angle += 10;
+		if (key == 'w') scale += 0.2;
+		if (key == 's') scale += -0.2;
+		if (scale > 5) scale = 5;
+		if (scale < 0.3) scale = 0.3;
+		
+		// 清屏
+		system("cls");
 	} while (key != 27);
 
 	return 0;

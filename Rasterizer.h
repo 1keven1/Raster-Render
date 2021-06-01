@@ -32,7 +32,7 @@ private:
 	std::tuple<float, float, float> Barycentric2D(float x, float y, const Vector4f* v);
 	std::tuple<float, float, float> Barycentric3D(const Vector4f& point, const Vector4f* v);
 
-	bool InsideTriangle(const float x, const float y, const Triangle& t);
+	bool InsideTriangle(const float x, const float y, const Triangle& t) const;
 	void SetPixelColor(const Vector2i point, const Vector3f color);
 	int GetPixelIndex(int x, int y);
 

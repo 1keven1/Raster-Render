@@ -17,6 +17,7 @@ Rasterizer::Rasterizer(int w, int h) :width(w), height(h)
 	normalMap = std::nullopt;
 }
 
+// 顶点着色器
 void Rasterizer::VertexShader(std::vector<Object>& objectList, std::vector<Light>& lightList, Camera c)
 {
 	//对于每个物体
@@ -27,6 +28,7 @@ void Rasterizer::VertexShader(std::vector<Object>& objectList, std::vector<Light
 		SetViewMatrix(c);
 		SetProjectionMatrix(c);
 		mvp = projection * view * model;
+
 		//对于物体中的每个三角形
 		for (Triangle& t : object.triangles)
 		{
@@ -67,21 +69,27 @@ void Rasterizer::VertexShader(std::vector<Object>& objectList, std::vector<Light
 	return;
 }
 
+// 片元着色器
 void Rasterizer::FragmentShader(const std::vector<Object>& objectList, const std::vector<Light>& lightList)
 {
+	// 载入贴图
 	shader.SetTexture(texture ? &*texture : nullptr);
 	shader.SetBumpMap(bumpMap ? &*bumpMap : nullptr);
 	shader.SetNormalMap(normalMap ? &*normalMap : nullptr);
+
+	// 逐个物品进行渲染
 	int objIndex = 0;
 	for (const auto& object : objectList)
 	{
+		// 逐个三角形
 		int triIndex = 0;
 		objIndex++;
 		for (const auto& t : object.triangles)
 		{
 			triIndex++;
 			logger.FragmentCount(object.triangles.size(), objIndex, triIndex);
-			//绘制bounding box
+
+			//设置三角形bounding box
 			float minXf, maxXf, minYf, maxYf;
 			minXf = width;
 			maxXf = 0;
@@ -99,12 +107,13 @@ void Rasterizer::FragmentShader(const std::vector<Object>& objectList, const std
 			if (maxXf > width) maxXf = width;
 			if (minYf < 0) minYf = 0;
 			if (maxYf > height) maxYf = height;
-			//取整
+			//将BoundingBox取整
 			int minX, maxX, minY, maxY;
 			minX = floor(minXf);
 			maxX = ceil(maxXf);
 			minY = floor(minYf);
 			maxY = ceil(maxYf);
+
 			//对bounding box中的每一个像素
 			for (int y = minY; y < maxY; y++)
 			{
@@ -125,6 +134,7 @@ void Rasterizer::FragmentShader(const std::vector<Object>& objectList, const std
 
 							//像素中点的坐标
 							Vector4f p{ (float)x + 0.5f,(float)y + 0.5f,interpolateZ2D,1.f };
+
 							//将三角形和监测点坐标变换回原来的形态
 							p = mvp.inverse() * viewport.inverse() * p;
 							Vector4f v[3] =
@@ -133,6 +143,7 @@ void Rasterizer::FragmentShader(const std::vector<Object>& objectList, const std
 								mvp.inverse() * viewport.inverse() * t.v[1],
 								mvp.inverse() * viewport.inverse() * t.v[2]
 							};
+
 							//计算3D重心坐标
 							float alpha3D, beta3D, gamma3D;
 							std::tie(alpha3D, beta3D, gamma3D) = Barycentric3D(p, v);
@@ -347,6 +358,7 @@ void Rasterizer::FragmentShader(const std::vector<Object>& objectList, const std
 	}
 }
 
+// 清除Frame Buffer
 void Rasterizer::Clear()
 {
 	std::fill(frameBuffer.begin(), frameBuffer.end(), Vector3f(0, 0, 0));
@@ -368,7 +380,7 @@ void Rasterizer::SetNormalMap(Texture nTex)
 	normalMap = nTex;
 }
 
-std::vector<Vector3f>& Rasterizer::GetFrameBuffer()
+std::vector<Vector3f>& Rasterizer::GetFrameBuffer() 
 {
 	return frameBuffer;
 }
@@ -456,6 +468,7 @@ void Rasterizer::SetProjectionMatrix(const Camera& c)
 	projection = ortho * p2o;
 }
 
+// 计算2D重心坐标
 std::tuple<float, float, float> Rasterizer::Barycentric2D(float x, float y, const Vector4f* v)
 {
 	float c1 = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
@@ -464,6 +477,7 @@ std::tuple<float, float, float> Rasterizer::Barycentric2D(float x, float y, cons
 	return { c1,c2,c3 };
 }
 
+// 计算3D重心坐标
 std::tuple<float, float, float> Rasterizer::Barycentric3D(const Vector4f& point, const Vector4f* v)
 {
 	//计算法线方向
@@ -514,8 +528,10 @@ Vector2f Rasterizer::Interpolate(float alpha, float beta, float gamma, const Vec
 	return (alpha * vert1 + beta * vert2 + gamma * vert3);
 }
 
-bool Rasterizer::InsideTriangle(const float x, const float y, const Triangle& t)
+// 判断点是否在三角形内
+bool Rasterizer::InsideTriangle(const float x, const float y, const Triangle& t) const
 {
+	// 通过叉乘符号判断
 	Vector3f v[3] =
 	{
 		Vector3f(t.v[0].x(),t.v[0].y(),1.f),
