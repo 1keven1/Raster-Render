@@ -1,2 +1,0 @@
-D:\1study\Computer Graphics\RasterRander\x64\Debug\RasterRander.exe
-D:\1study\Computer Graphics\RasterRander\x64\Debug\RasterRander.pdb
